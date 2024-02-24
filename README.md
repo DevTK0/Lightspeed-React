@@ -146,3 +146,7 @@ When we look at variants, we see that while we still lose some distance by placi
   
   export function ServerStatus() { ... }
   ```
+- Server Actions should be indicated by \<name>Action (e.g. getStatusAction, createToDoAction)
+
+### HTTP
+- APIs should be indicated by \<name>API (e.g. getToDoAPI, createToDoAPI)
