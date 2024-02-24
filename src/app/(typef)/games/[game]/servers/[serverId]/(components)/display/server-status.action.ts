@@ -4,19 +4,18 @@ import { getServerStatus as getStatus } from "@/lib/aws/ec2";
 import { action } from "@/lib/server-actions/next-safe-action";
 import { z } from "zod";
 
-import { games } from "@/configs/games/gamelist";
+import { gamelist } from "@/configs/games/gamelist";
+import { withErrorHandling } from "@/lib/error-handling/next-safe-action";
 
 const getServerStatusSchema = z.object({
-    game: games,
+    game: z.enum(gamelist),
     serverId: z.number(),
 });
 
-export type Input = z.infer<typeof getServerStatusSchema>;
-export type Output = Awaited<ReturnType<typeof getServerStatus>>["data"];
+export type GetServerStatus = z.infer<typeof getServerStatusSchema>;
 
-export const getServerStatus = action(
-    getServerStatusSchema,
-    async ({ game, serverId }) => {
+export const getServerStatus = withErrorHandling(
+    action(getServerStatusSchema, async ({ game, serverId }) => {
         return await getStatus(game, serverId);
-    }
+    })
 );

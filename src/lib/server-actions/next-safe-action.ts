@@ -15,5 +15,3 @@ export const action = createSafeActionClient({
         // Add auth features
     },
 });
-
-export type NextSafeAction = ReturnType<typeof action>;

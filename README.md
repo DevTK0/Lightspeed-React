@@ -57,11 +57,11 @@ Components can only make use of their own posterity.
 
 Exceptions can be made for [Variant](#variants) and [Global](#global-components) components.
 
-*Why top down composability?*
+*Why Top Down Composability?*
 
 To maximise colocation. The Parent > Child relationship is guaranteed from the perspective of the parent. That is to say that the parent component will be making use of the child component. However, the reverse is not true. A child component should be dependent on it's props and not an ancestor's component. By enforcing one way directional flow, we avoid placing components  very far from where they are actually being used.
 
-A common approach is to put common components in the parent and have the children inherit these components.
+A common Bottom Up approach is to put common components in the parent and have the children inherit these components. 
 
 ```
 /common
@@ -70,7 +70,7 @@ A common approach is to put common components in the parent and have the childre
 /child2/component2 -> uses common-component
 ```
 
-However, this just results in the shared component being equally far from both of the child components. The solution to this is to use variants.
+However, this results in the shared component being equally far from both of the child components. A better solution to is to make use of variants.
 
 
 ### Variants

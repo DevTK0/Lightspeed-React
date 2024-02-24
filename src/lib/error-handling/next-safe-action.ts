@@ -1,8 +1,11 @@
-import { NextSafeAction } from "../server-actions/next-safe-action";
+import { SafeAction } from "next-safe-action";
+import type { ZodSchema, z } from "zod";
 
-export function withErrorHandling<I, O>(handler: NextSafeAction) {
-    return async function (params: I) {
-        const { data, serverError, validationErrors } = await handler(params);
+export function withErrorHandling<S extends ZodSchema, Data>(
+    action: SafeAction<S, Data>
+): (input: z.infer<S>) => Promise<Data | undefined> {
+    return async function (params) {
+        const { data, serverError, validationErrors } = await action(params);
 
         if (serverError) {
             throw new ServerError(serverError);
@@ -12,7 +15,7 @@ export function withErrorHandling<I, O>(handler: NextSafeAction) {
             throw new ValidationError("Invalid " + error);
         }
 
-        return data as O;
+        return data;
     };
 }
 

@@ -3,16 +3,28 @@ import { Icons } from "@/components/ui/icons";
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/css/utils";
 import { ClassAttributes } from "react";
-import { useServerStatus } from "./server-status.hook";
+
+import { getServerStatus } from "./server-status.action";
 import { serverStatus } from "@/lib/aws/ec2";
+import { useQuery } from "@tanstack/react-query";
 
 export function ServerStatus(props: ClassAttributes<HTMLDivElement>) {
+    const serverId = 1;
+    const game = "Palworld";
+
     const {
         isPending,
         isError,
         data: server,
         error,
-    } = useServerStatus({ game: "Palworld", serverId: 1 });
+    } = useQuery({
+        queryKey: ["server", serverId, "status"],
+        queryFn: () =>
+            getServerStatus({
+                game: game,
+                serverId: serverId,
+            }),
+    });
 
     const status = renderStatus(isPending, isError, server, error);
 
