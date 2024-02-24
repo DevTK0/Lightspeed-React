@@ -137,8 +137,12 @@ When we look at variants, we see that while we still lose some distance by placi
   if (isPending) return ...
   if (isError) return ...
   ```
-- 
 
 ### React
-- Name your rendering functions as render\<thing-to-render> (e.g. renderStatus, renderPosts)
-- 
+- Name your rendering subfunctions as render\<thing-to-render> (e.g. renderStatus, renderPosts).
+  - This does not include the main TSX component which should be named after the file name. 
+  ```
+  // server-status.tsx
+  
+  export function ServerStatus() { ... }
+  ```

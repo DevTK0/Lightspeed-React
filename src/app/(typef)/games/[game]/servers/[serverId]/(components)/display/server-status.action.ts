@@ -1,6 +1,6 @@
 "use server";
 
-import { getServerStatus as getStatus } from "@/lib/aws/ec2";
+import { getServerStatus as getAwsServerStatus } from "@/lib/aws/ec2";
 import { action } from "@/lib/server-actions/next-safe-action";
 import { z } from "zod";
 
@@ -16,6 +16,6 @@ export type GetServerStatus = z.infer<typeof getServerStatusSchema>;
 
 export const getServerStatus = withErrorHandling(
     action(getServerStatusSchema, async ({ game, serverId }) => {
-        return await getStatus(game, serverId);
+        return await getAwsServerStatus(game, serverId);
     })
 );
