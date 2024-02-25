@@ -29,11 +29,55 @@ The following technologies have been integrated into the core stack:
 
 ### NextJS + React
 
-NextJS and its integration with Vercel allows for enormous agility in developing complex web applications.
+NextJS and its integration with Vercel allows for enormous agility in developing complex web applications. The App router in Next13+ allows for more advanced SSR options, including features like Server Actions and Suspenses.
 
-In particular, the DX for a monorepo using React Server Components and Server Actions allows for end-to-end type safety without resorting to libraries like tRPC (though still making use of libraries like Next Safe Action)
 
-### 
+### Next Safe Action
+
+This library integrates Server Actions with Zod Schema Library for better type safety. Having a monorepo using React Server Components and Server Actions allows for end-to-end type safety with minimal setup.
+
+### Tanstack Query
+
+Tanstack Query (AKA React Query), is an async state management library. You can use it for caching, making real time interfaces, infinite scroll interfaces, offline mode etc.
+
+### Shadcn
+
+A UI library that packages various open source, re-usable components and prestyles them with a unified design. This library integrates a lot of the best in class technologies for UI development such as Tailwind, RadixUI, Next Themes... etc., making Front End Development a breeze.
+
+### Supabase
+
+Supabase provides a managed Postgres Database. It also comes with additional features such as Auth, Realtime Tables, File storage and more. This combined with Vercel in their free tiers allows for scale to zero development for virtually any type of application.  
+
+## Exploration
+
+### Future Tech
+Auth
+- Clerk
+- Lucia-Auth
+
+Database
+- Drizzle ORM
+
+React
+- Tanstack Router
+- StyleX
+
+Cloud
+- Google Cloud
+
+Frameworks
+- Svelte
+- Astro
+
+### Previous Tech
+Database
+- Planetscale
+  - A good managed service for applications that expect to have to scale their database.
+  - Uses Vitess - the same technology that powers services like Youtube and Github.
+  - Supabase is used instead as it more suitable for MVP development and smaller projects.
+- Prisma ORM
+  - I ended up not using ORMs as I found that they often slowed down development by quite a lot. Not only do you still need to manage your database, but you also need to learn about the ORM layer, the apis, migrations etc.
+
 
 ## Core Guidelines
 
