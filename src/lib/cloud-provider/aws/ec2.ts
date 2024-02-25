@@ -9,17 +9,10 @@ import {
     RunInstancesCommand,
 } from "@aws-sdk/client-ec2";
 import { z } from "zod";
-import { AWSError } from "../error-handling/aws";
+import { AWSError } from "@/lib/error-handling/aws";
+import { ServerStatus } from "../server";
 
 const ec2 = new EC2Client(configs.region);
-
-export type serverStatus =
-    | "Starting"
-    | "Running"
-    | "Stopping"
-    | "Stopped"
-    | "Archived"
-    | "Error";
 
 /**
  * Flow:
@@ -41,11 +34,11 @@ export type serverStatus =
  * @param serverId
  * @returns
  */
-export async function getServerStatus(
+export async function getInstanceState(
     game: string,
     serverId: number
 ): Promise<{
-    status: serverStatus;
+    status: ServerStatus;
     ipAddress?: string;
     instanceType?: string;
 }> {
@@ -390,7 +383,7 @@ export async function checkIfArchived(game: string, serverId: number) {
     };
 }
 
-type instanceTypes =
+export type instanceTypes =
     | "t2.small"
     | "t2.medium"
     | "c5a.large"

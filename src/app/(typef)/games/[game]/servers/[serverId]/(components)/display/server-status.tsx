@@ -4,8 +4,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/css/utils";
 import { ClassAttributes } from "react";
 
-import { getServerStatus } from "./server-status.action";
-import { serverStatus } from "@/lib/aws/ec2";
+import { getServerStatusAction } from "./server-status.action";
+import type { ServerStatus } from "@/lib/cloud-provider/server";
 import { useQuery } from "@tanstack/react-query";
 
 export function ServerStatus(props: ClassAttributes<HTMLDivElement>) {
@@ -20,7 +20,7 @@ export function ServerStatus(props: ClassAttributes<HTMLDivElement>) {
     } = useQuery({
         queryKey: ["server", serverId, "status"],
         queryFn: () =>
-            getServerStatus({
+            getServerStatusAction({
                 game: game,
                 serverId: serverId,
             }),
@@ -53,7 +53,7 @@ function renderStatus(
     isError: boolean,
     server:
         | {
-              status: serverStatus;
+              status: ServerStatus;
               instanceType?: string | undefined;
               ipAddress?: string | undefined;
           }
