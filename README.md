@@ -4,7 +4,7 @@ Lightspeed is a project with minimal Astraea components in order to test out var
 ## Getting Started
 
 ```bash
-pnpm dev
+pnpm run dev
 ```
 
 ## Core Stack
