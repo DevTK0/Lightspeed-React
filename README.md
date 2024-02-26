@@ -66,7 +66,7 @@ Cloud
 - Google Cloud
 
 Frameworks
-- Svelte
+- Sveltedds
 - Astro
 
 ### Previous Tech
@@ -77,6 +77,10 @@ Database
   - Supabase is used instead as it more suitable for MVP development and smaller projects.
 - Prisma ORM
   - I ended up not using ORMs as I found that they often slowed down development by quite a lot. Not only do you still need to manage your database, but you also need to learn about the ORM layer, the apis, migrations etc.
+- Kysely
+  - Kysely combined with kysely-codegen is a great way to get typesafety from your sql queries.
+  - Here, I opted to stick with Supabase as it also allows me to do the same thing. 
+  - Also, since I'm using Supabase for Auth (and potentially other features in the future), I wanted better integration with the supabase client (using Kysely would have broken integration with RLS etc.).
 
 
 ## Core Guidelines
