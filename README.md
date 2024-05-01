@@ -69,12 +69,20 @@ Frameworks
 - Sveltedds
 - Astro
 
+Queues
+- Inngest
+- trigger.dev
+
+Email
+- Resend 
+
 ### Previous Tech
 Database
 - Planetscale
   - A good managed service for applications that expect to have to scale their database.
   - Uses Vitess - the same technology that powers services like Youtube and Github.
   - Supabase is used instead as it more suitable for MVP development and smaller projects.
+  - Update: Planetscale no longer has a free tier.
 - Prisma ORM
   - I ended up not using ORMs as I found that they often slowed down development by quite a lot. Not only do you still need to manage your database, but you also need to learn about the ORM layer, the apis, migrations etc.
 - Kysely
@@ -89,10 +97,11 @@ Database
 
 In this project, we experiment with the idea of extreme colocation. Colocation makes it easier to reason about the code, which improves maintainability in the long run. The following are some established guidelines:
 
-- Hooks and Server Actions should be in a separate .ts file in the same folder as the component that is using it. 
+- Prefer creating localised component files within the same folder over creating common services.
   - /path/to/some-component.tsx
   - /path/to/some-component.action.ts
-  - /path/to/some-component.hook.ts
+  - /path/to/some-component.service.ts
+  - /path/to/some-component.client.ts
 - Components should follow [Top Down Composability](#top-down-composability) rules.
 
 
@@ -145,11 +154,14 @@ Variants cannot be the main sibling of another variant. All variants should shar
 When we look at variants, we see that while we still lose some distance by placing common components very far from the variant components, what we get is a clearer representation of the code. Customisations will live close to their variant components and it becomes very clear which components are reused and which are customisations for the variant.
 
 ### Global Components
+Global components can be called from anywhere. They are demarked by a (global) import. (e.g. import { config } from "@/(global)/configs/...)
 
 `/lib`
   - AWS SDK
   - Supabase
   - Next Safe Action
+  - Error handling
+  - Utilities
 
 `/components/ui`
   - Shadcn/ui
@@ -158,6 +170,7 @@ When we look at variants, we see that while we still lose some distance by placi
   - Next Themes
   - React Query
 
+`/configs`
 
 ## Conventions
 
@@ -186,15 +199,21 @@ When we look at variants, we see that while we still lose some distance by placi
   if (isError) return ...
   ```
 
-### React
-- Name your rendering subfunctions as render\<thing-to-render> (e.g. renderStatus, renderPosts).
-  - This does not include the main TSX component which should be named after the file name. 
+### React / NextJS 
+- Avoid using nested React functions (see [link](https://helderberto.com/reactjs-tips-tricks-avoid-nested-render-functions)).
+- The main TSX component should be named after the file name. 
   ```
   // server-status.tsx
   
   export function ServerStatus() { ... }
   ```
-- Server Actions should be indicated by \<name>Action (e.g. getStatusAction, createToDoAction)
+- Server Actions
+  - Server Action functions should be indicated by \<name>Action (e.g. getStatusAction, createToDoAction)
+  - Server Actions should be stored in a .action.ts file corresponding to the component that uses it (e.g. component1.tsx, component1.action.ts)
+  - Create a separate service file for each server action (name it \<component>.service.ts). All of the logic (including schema) should be in the service file for maximum reusability.
+
+- SSR
+  - The base component should always be SSR. Any client behaviors should be implemented in a separate .client.tsx file and invoked by the base component. This will ensure that the developer is always thinking about both client and server side behaviors. 
 
 ### HTTP
 - APIs should be indicated by \<name>API (e.g. getToDoAPI, createToDoAPI)

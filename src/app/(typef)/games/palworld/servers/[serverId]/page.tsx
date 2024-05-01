@@ -1,12 +1,14 @@
 "use client";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Separator } from "@/components/ui/separator";
 
-import Commands from "./(shared)/commands/commands";
-// import Settings from "./(components)/settings";
-import Overview from "./(shared)/overview/overview";
+import {
+    Tabs,
+    TabsContent,
+    TabsList,
+    TabsTrigger,
+} from "@/(global)/components/ui/tabs";
+import { Separator } from "@/(global)/components/ui/separator";
 
-export default function Game() {
+export default function Server() {
     return (
         <Tabs defaultValue="overview" className="h-full space-y-6">
             <div className="space-between flex items-center">
@@ -23,19 +25,21 @@ export default function Game() {
                 value="overview"
                 className="h-full flex-col border-none p-0 data-[state=active]:flex"
             >
-                <Overview />
+                Overview
                 <Separator className="my-4" />
             </TabsContent>
             <TabsContent
                 value="commands"
                 className="h-full flex-col border-none p-0 data-[state=active]:flex"
             >
-                <Commands />
+                Commands
             </TabsContent>
             <TabsContent
                 value="settings"
                 className="h-full flex-col border-none p-0 data-[state=active]:flex"
-            ></TabsContent>
+            >
+                Settings
+            </TabsContent>
         </Tabs>
     );
 }

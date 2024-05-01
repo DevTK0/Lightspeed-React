@@ -1,5 +1,5 @@
-import Navbar from "@/components/navbar/navbar";
-import { Toaster } from "@/components/ui/toaster";
+import Navbar from "./(local)/navbar/navbar";
+import { Toaster } from "@/(global)/components/ui/toaster";
 
 export default async function TypeFLayout({
     children,

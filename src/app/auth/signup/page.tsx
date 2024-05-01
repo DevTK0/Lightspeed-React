@@ -5,10 +5,9 @@ import Logo from "@/(global)/components/ui/logo";
 import { getSession } from "@/(global)/lib/auth/server";
 import { routes } from "@/(global)/configs/site";
 
-import { UserAuthForm } from "./(local)/user-auth-form";
-import { getURL } from "@/(global)/lib/request/fetch";
+import { SignUpForm } from "./(local)/sign-up-form";
 
-export default async function SignIn() {
+export default async function SignUp() {
     const {
         data: { session },
     } = await getSession();
@@ -28,22 +27,19 @@ export default async function SignIn() {
                     <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
                         <div className="flex flex-col space-y-2 text-center">
                             <h1 className="text-2xl font-semibold tracking-tight">
-                                Sign In
+                                Create an account
                             </h1>
-                            {/* <p className="text-sm text-muted-foreground">
-                                Enter your email below to create your account
-                            </p> */}
                         </div>
-                        <UserAuthForm />
+                        <SignUpForm />
                         <div>
                             <p className="px-8 text-center text-sm text-muted-foreground">
-                                Don&apos;t have an account?{" "}
+                                Already have an account?{" "}
                                 <Link
-                                    href="/auth/signup"
+                                    href="/auth/signin"
                                     className="underline hover:text-primary"
                                 >
-                                    Sign up
-                                </Link>{" "}
+                                    Sign in
+                                </Link>
                             </p>
                             <p className="px-8 underline text-center text-sm text-muted-foreground hover:text-primary mt-2">
                                 <Link href="/auth/forgot-password">
